@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>Count Page</h1>
+    <h1 id="ct"></h1>
 
     <script>
 
@@ -19,6 +20,8 @@
 
         ws.onmessage = function(event){
             console.log('Message Received from server...',event)
+            var data = JSON.parse(event.data)
+            document.getElementById("ct").innerText ="count "+data.count
         }
 
         ws.onerror = function(event){
