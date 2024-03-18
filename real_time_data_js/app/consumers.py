@@ -31,7 +31,7 @@ class MyASyncConsumer(AsyncConsumer):
         print("Message Received...",event)
         print("Message Received...",event['text'])
         for i in range(1,11):
-            await self.send({"type":"websocket.send","text":str(i)})
+            await self.send({"type":"websocket.send","text":json.dumps({'count':i})})
             await asyncio.sleep(1)
 
     async def websocket_disconnect(self,event):
