@@ -22,7 +22,7 @@
         ws.onmessage = function(event){
             console.log('Message Received from server...',event.data)
             var data = JSON.parse(event.data)
-            document.getElementById("ct").innerText ="count "+data.count
+            document.querySelector('#chat-log').value += (data.msg +'\n')
         }
 
         ws.onerror = function(event){
