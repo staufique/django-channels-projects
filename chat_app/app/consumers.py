@@ -27,7 +27,7 @@ class MySyncConsumer(SyncConsumer):
             'text':event['message']
         })
 
-    def websocket_disconnected(self,event):
+    def websocket_disconnect(self,event):
         print("websocket disconnected...",event)
         print("channel Layer...",self.channel_layer)
         print("channel Name...",self.channel_name)
@@ -37,9 +37,31 @@ class MySyncConsumer(SyncConsumer):
 class MyASyncConsumer(AsyncConsumer):
     async def websocket_connect(self,event):
         print("websocket connected...",event)
+        print("channel Layer...",self.channel_layer)
+        print("channel Name...",self.channel_name)
+
+        await self.channel_layer.group_add('programmers',self.channel_name)
+
+        await self.send({"type":"websocket.accept","text":"hello"})
 
     async def websocket_receive(self,event):
         print("message received from client...",event)
+        await self.channel_layer.group_send(
+            'programmers',{
+            'type':'chat.message',
+            'message':event['text']}
+        )
+
+    async def chat_message(self,event):
+        print('Event...',event['message'])
+        await self.send({
+            'type':'websocket.send',
+            'text':event['message']
+        })
 
     async def websocket_disconnected(self,event):
         print("websocket disconnected...",event)
+        print("channel Layer...",self.channel_layer)
+        print("channel Name...",self.channel_name)
+        await self.channel_layer.group_discard('programmers',self.channel_name)
+        raise StopConsumer()
