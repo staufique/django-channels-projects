@@ -32,7 +32,7 @@
         var ws = new WebSocket(
             'ws://'
             + window.location.host
-            + "/ws/ac/"
+            + "/ws/sc/"
             + groupName+'/'
         )
 
@@ -43,8 +43,13 @@
         ws.onmessage = function(event){
             console.log('Message Received from server...',event.data)
             var data = JSON.parse(event.data)
-            document.querySelector('#chat-log').value += (data.msg +'\n')
+            document.querySelector('#chat-log').value += (data.user +": "+ data.msg +'\n')
         }
+        // ws.onmessage = function(event){
+        //     console.log('Message Received from server...',event.data)
+        //     var data = JSON.parse(event.data)
+        //     document.querySelector('#chat-log').value += (data.msg +'\n')
+        // }
 
         ws.onerror = function(event){
             console.log("websocket error occured...",event)
