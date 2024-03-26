@@ -1,13 +1,20 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+   
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+
 </head>
 <body>
-    <h1>Room Name : </h1><h1>{{groupname}}</h1>
 
+   <h1>{{groupname}} <i class="fa-solid fa-diagram-project"></i></h1>
 
     <textarea name="" id="chat-log" cols="50" rows="10"></textarea><br>
     <input type="text" name="" id="chat-message-input" size="50" placeholder="type message"><br>
@@ -17,8 +24,7 @@
         const groupName = JSON.parse(document.getElementById
         ('group-name').textContent)
         console.log(groupName)
-        //  var ws = new WebSocket("ws://127.0.0.1:8000/ws/ac/")
-        
+
         var ws = new WebSocket(
             'ws://'
             + window.location.host
