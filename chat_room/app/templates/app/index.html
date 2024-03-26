@@ -14,9 +14,13 @@
 </head>
 <body>
 
-   <h1>{{groupname}} <i class="fa-solid fa-diagram-project"></i></h1>
+   <h1>Group Name: {{groupname}} <i class="fa-solid fa-diagram-project"></i></h1>
 
-    <textarea name="" id="chat-log" cols="50" rows="10"></textarea><br>
+    <textarea name="" id="chat-log" cols="50" rows="10">
+        {% for chat in chats %}
+          {{chat.content}}
+        {% endfor %}
+    </textarea><br>
     <input type="text" name="" id="chat-message-input" size="50" placeholder="type message"><br>
     <input type="button" value="Send" id="chat-message-submit">
     {{groupname|json_script:"group-name"}}
